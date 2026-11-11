@@ -44,7 +44,7 @@ export const KIND_LABEL: Record<AgentKind, string> = {
 }
 
 export const AGENTS: Agent[] = [
-  { id: 'op', name: 'The Operator', kind: 'email', status: 'live', channel: 'Email · service@example.test', address: 'service@example.test',
+  { id: 'op', name: 'Email and texts', kind: 'email', status: 'live', channel: 'Email · service@example.test', address: 'service@example.test',
     desc: 'Answers customer emails for the customer service desk, and replies or acts the way your team does.',
     today: '25', todayLabel: 'emails and texts today', needs: '7 need you', needsHref: '/inbox', workflow: 'In 3 workflows', href: '/agents/op',
     team: 'LTL customer service', language: 'English', tz: 'Central time (Chicago)',

@@ -30,6 +30,14 @@ export const stageCounts = () => STAGES.map((s) => ({ stage: s, count: REQUEST_T
 /** One stage per agent, for the four step journey. The Operator is per request type. */
 export const AGENT_STAGE: Record<Agent["id"], Stage> = { op: "Shadow", phone: "Review", check: "Autopilot", osd: "Review", cat: "Learn" }
 
+/**
+ * The Operator is the brain: what the team taught it, and how much it can do alone.
+ * Learning agents work a channel and feed what they see back to it.
+ * Task agents follow a script when a workflow calls them. They live in Automate.
+ */
+export const LEARNING_IDS: Agent["id"][] = ["op", "phone"]
+export const isLearning = (id: string) => (LEARNING_IDS as string[]).includes(id)
+
 export const TOTALS = {
   emails: 25,
   calls: AGENTS.filter((a) => a.kind === "inbound" || a.kind === "outbound").reduce((n, a) => n + Number(a.today), 0),

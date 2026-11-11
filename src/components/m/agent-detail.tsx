@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils"
 import type { Agent } from "@/lib/moneiva/agents-data"
 import { FLOWS, PROFILE_OPTIONS, RUNSET, TEST_EMAIL, USED } from "@/lib/moneiva/agents-extra-data"
 import { REQUEST_TYPES, STAGES } from "@/lib/moneiva/data"
-import { AGENT_STAGE, AGENT_STATUS, REVIEW_ITEMS, STAGE_INFO, WORKFLOWS } from "@/lib/minimal"
+import { AGENT_STAGE, AGENT_STATUS, isLearning, REVIEW_ITEMS, STAGE_INFO, WORKFLOWS } from "@/lib/minimal"
 import { markDone, useDone } from "@/components/m/store"
 
 type Panel = "who" | "tools" | "how" | "test" | null
@@ -38,11 +38,12 @@ export function AgentDetail({ agent: a }: { agent: Agent }) {
   const isDone = useDone()
   const needs = REVIEW_ITEMS.filter((i) => !isDone(i.id) && (i.kind === "call" ? i.agent === a.name : a.id === "op")).length
   const isOp = a.id === "op"
+  const learning = isLearning(a.id)
   const ready = REQUEST_TYPES.find((t) => t.flag === "ready")
 
   return (
     <>
-      <BackLink href="/agents" label="Agents" />
+      <BackLink href={learning ? "/teach" : "/agents"} label={learning ? "Teach" : "Agents"} />
 
       <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-center">
         <div className="flex min-w-0 flex-1 items-center gap-4 sm:gap-5">
@@ -51,7 +52,9 @@ export function AgentDetail({ agent: a }: { agent: Agent }) {
         </span>
         <div className="min-w-0 flex-1">
           <h1 className="text-[28px] leading-tight font-bold tracking-tight sm:text-[34px]">{a.name}</h1>
-          <p className="text-[15px] text-muted-foreground">{a.channel}</p>
+          <p className="text-[15px] text-muted-foreground">
+            {learning ? "Learning agent for the Operator" : "Task agent"} · {a.channel}
+          </p>
         </div>
         </div>
         <div className="flex items-center gap-2">
@@ -111,6 +114,17 @@ export function AgentDetail({ agent: a }: { agent: Agent }) {
             </Link>
           )}
         </Card>
+        {!learning ? (
+          <Card className="p-6">
+            <div className="text-[15px] font-semibold">Follows a script</div>
+            <p className="mt-2 text-[15px] text-muted-foreground">
+              Workflows tell it when to act and what happens next. It doesn&apos;t learn from your team, so it has no stages.
+            </p>
+            {USED[a.id].length > 0 && (
+              <p className="mt-3 text-[15px] font-medium">{USED[a.id].length === 1 ? "Used in 1 workflow" : `Used in ${USED[a.id].length} workflows`}</p>
+            )}
+          </Card>
+        ) : (
         <Card className="p-6">
           <div className="mb-4 text-[15px] font-semibold">{STAGE_INFO[stage].label}</div>
           <Journey stage={stage} />
@@ -124,6 +138,7 @@ export function AgentDetail({ agent: a }: { agent: Agent }) {
             </Link>
           )}
         </Card>
+        )}
       </div>
 
       {isOp && ready && !moved && (

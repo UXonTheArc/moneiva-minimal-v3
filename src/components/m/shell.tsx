@@ -22,7 +22,11 @@ const NAV = [
   { href: "/agents", label: "Automate", icon: Bot, side: "build" },
 ]
 
+/** Learning agents belong to the Operator, so their pages sit under Teach. */
+const LEARNING_PAGES = ["/agents/op", "/agents/phone"]
+
 function isActive(path: string, href: string) {
+  if (LEARNING_PAGES.includes(path)) return href === "/teach"
   // Automate holds two views: Agents and Workflows.
   if (href === "/agents") return ["/agents", "/workflows", "/automate"].some((h) => path === h || path.startsWith(h + "/"))
   return href === "/" ? path === "/" : path === href || path.startsWith(href + "/")

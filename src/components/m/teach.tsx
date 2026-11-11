@@ -5,6 +5,7 @@ import { useMemo, useState } from "react"
 import { ArrowRight, BookOpen, Check, CheckCircle2, X, FileText, FileUp, GraduationCap, Loader, Mail, Scale, Search, Tags } from "lucide-react"
 import { toast } from "sonner"
 
+import { OperatorCard } from "@/components/m/operator"
 import { FactsSheet, type SheetFact } from "@/components/m/facts-sheet"
 import { useDone } from "@/components/m/store"
 import { Card, Empty, Field, Group, Icon, PageTitle, Row, Section, Select, btn, inputCls } from "@/components/m/ui"
@@ -102,7 +103,9 @@ export function Teach({ initialPhase, initialPanel }: { initialPhase: Phase; ini
 
   return (
     <>
-      <PageTitle title="Teach" lead="Everything your agents know, and where they learned it." />
+      <PageTitle title="Teach" lead="Teach the Operator how your team works. It learns through its agents, and every answer means it asks you less." />
+
+      <OperatorCard className="mb-12" />
 
       <Card className="mb-12 flex flex-col gap-6 p-6 sm:flex-row sm:items-center sm:p-8">
         <div className="flex-1">

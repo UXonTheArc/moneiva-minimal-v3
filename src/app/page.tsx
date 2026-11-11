@@ -3,13 +3,13 @@
 import Link from "next/link"
 import { AlertCircle, ArrowRight, Check, GraduationCap, MessageSquare } from "lucide-react"
 
+import { OperatorCard } from "@/components/m/operator"
 import { WorkflowRow } from "@/components/m/automate"
-import { KindIcon } from "@/components/m/kind-icon"
 import { useDone } from "@/components/m/store"
-import { Card, Dot, Group, Icon, Journey, PageTitle, Row, Section, btn } from "@/components/m/ui"
+import { Card, Group, Icon, PageTitle, Row, Section, btn } from "@/components/m/ui"
 import { AGENTS } from "@/lib/moneiva/agents-data"
 import { ME } from "@/lib/moneiva/data"
-import { AGENT_STAGE, REVIEW_ITEMS, RUNS_TODAY, STAGE_INFO, TEACH_ITEMS, TODAY, TOTALS, WORKFLOWS, agentState } from "@/lib/minimal"
+import { REVIEW_ITEMS, RUNS_TODAY, TEACH_ITEMS, TODAY, TOTALS, WORKFLOWS } from "@/lib/minimal"
 import { ZOOM_CONNECTIONS } from "@/lib/moneiva/phone-check-data"
 
 export default function TodayPage() {
@@ -28,8 +28,8 @@ export default function TodayPage() {
         title={`Good afternoon, ${first}.`}
         lead={
           <>
-            Your agents handled <b className="font-semibold text-foreground">{TOTALS.emails} emails</b> and{" "}
-            <b className="font-semibold text-foreground">{TOTALS.calls} calls</b> today, and your workflows ran{" "}
+            The Operator handled <b className="font-semibold text-foreground">{TOTALS.emails} emails</b> and{" "}
+            <b className="font-semibold text-foreground">{AGENTS.find((x) => x.id === "phone")!.today} calls</b> today, and your workflows ran{" "}
             <b className="font-semibold text-foreground">{RUNS_TODAY} times</b>.{" "}
             <b className="font-semibold text-foreground">{TOTALS.onTheirOwn}</b> needed no one.
           </>
@@ -100,41 +100,12 @@ export default function TodayPage() {
             </Icon>
           }
           title={teachLeft ? `${teachLeft} things to teach` : "Nothing to teach right now"}
-          sub="When you have a minute. Each answer makes the agents need you less."
+          sub="When you have a minute. Each answer means the Operator needs you less."
         />
       </Group>
 
-      <Section title="Your agents" action={<Link href="/agents" className={btn.plain}>All agents</Link>}>
-        <Group>
-          {AGENTS.map((a) => {
-            const st = agentState(a)
-            const stage = AGENT_STAGE[a.id]
-            return (
-              <Row
-                key={a.id}
-                href={`/agents/${a.id}`}
-                icon={
-                  <Icon>
-                    <KindIcon kind={a.kind} />
-                  </Icon>
-                }
-                title={a.name}
-                sub={
-                  <span className="inline-flex items-center gap-1.5">
-                    <Dot tone={st.tone} />
-                    {st.tone === "ok" || st.tone === "warn" ? `${a.today} ${a.todayLabel}` : st.label}
-                  </span>
-                }
-                value={
-                  <div className="hidden w-40 sm:block">
-                    <Journey stage={stage} compact />
-                    <div className="mt-1.5 text-left text-[12px]">{STAGE_INFO[stage].label}</div>
-                  </div>
-                }
-              />
-            )
-          })}
-        </Group>
+      <Section title="Teaching">
+        <OperatorCard compact />
       </Section>
 
       <Section title="Your workflows" action={<Link href="/workflows" className={btn.plain}>All workflows</Link>}>

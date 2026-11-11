@@ -50,7 +50,7 @@ export const STATUS_DOT: Record<ActivityStatus, string> = {
 
 export type FilterKey = "agent" | "channel" | "status" | "type"
 export const FILTER_MENUS: { key: FilterKey; title: string; opts: string[] }[] = [
-  { key: "agent", title: "Agent", opts: ["The Operator", "Inbound phone line", "Carrier check calls"] },
+  { key: "agent", title: "Agent", opts: ["Email and texts", "Inbound phone line", "Carrier check calls"] },
   { key: "channel", title: "Channel", opts: ["Email", "Inbound call", "Outbound call", "Text message"] },
   { key: "status", title: "Status", opts: ["needs", "prog", "done", "fail", "ign"] },
   {
@@ -96,7 +96,7 @@ export const ACTIVITY: ActivityRow[] = [
       { title: 'Promised a call back', sub: 'Added to your Inbox' },
       { title: 'Waiting for someone to call back', sub: 'In your Inbox', mark: 'wait' }
     ] },
-  { id: 'r1', agent: 'The Operator', when: 'Oct 9, 11:02 AM', channel: 'Email', from: 'Sam Patel', customer: 'Sam Patel, Fabrikam Foods',
+  { id: 'r1', agent: 'Email and texts', when: 'Oct 9, 11:02 AM', channel: 'Email', from: 'Sam Patel', customer: 'Sam Patel, Fabrikam Foods',
     about: 'Driver on time for pickup 9800123?', type: 'ETA or status request', stage: 'Review', status: 'needs',
     ref: 'Pickup 9800123', by: 'Operator, waiting for approval', statusNote: 'Reply drafted, waiting for approval',
     ask: 'Approve the reply before it goes out. ETA or status requests are in Review, so every reply waits for a person.', cta: 'Review it',
@@ -114,7 +114,7 @@ export const ACTIVITY: ActivityRow[] = [
       { title: 'Drafted a reply', sub: 'Oct 9, 11:03 AM' },
       { title: 'Waiting for approval', sub: 'In Review', mark: 'wait' }
     ] },
-  { id: 'r13', agent: 'The Operator', when: 'Oct 9, 10:12 AM', channel: 'Email', from: 'Riley Chen', customer: 'Riley Chen, Contoso Retail',
+  { id: 'r13', agent: 'Email and texts', when: 'Oct 9, 10:12 AM', channel: 'Email', from: 'Riley Chen', customer: 'Riley Chen, Contoso Retail',
     about: 'pickup 9900456', type: 'ETA or status request', stage: 'Review', status: 'needs',
     ref: 'Pickup 9900456', by: 'Operator, waiting for approval', statusNote: 'Reply drafted, waiting for approval',
     ask: 'Approve the reply before it goes out. ETA or status requests are in Review, so every reply waits for a person.', cta: 'Review it',
@@ -131,7 +131,7 @@ export const ACTIVITY: ActivityRow[] = [
       { title: 'Drafted a reply', sub: 'Oct 9, 10:13 AM' },
       { title: 'Waiting for approval', sub: 'In Review', mark: 'wait' }
     ] },
-  { id: 'r2', agent: 'The Operator', when: 'Oct 9, 8:21 AM', channel: 'Email', from: 'Alex Rivera', customer: 'Alex Rivera, Northwind Supply',
+  { id: 'r2', agent: 'Email and texts', when: 'Oct 9, 8:21 AM', channel: 'Email', from: 'Alex Rivera', customer: 'Alex Rivera, Northwind Supply',
     about: 'pickup 9900456', type: 'Confirmation on a pickup', stage: 'Shadow', status: 'prog',
     ref: 'Pickup 9900456', by: 'Your team', statusNote: 'Watching for your team\'s reply',
     ask: 'This request type is in Shadow, so the Operator sends nothing. It predicted a reply and will compare it with what your team sends.', cta: '',
@@ -146,7 +146,7 @@ export const ACTIVITY: ActivityRow[] = [
       { title: 'Predicted a reply', sub: 'Confirm the pickup for Oct 10' },
       { title: 'Watching for your team\'s reply', sub: 'Will compare once it is sent', mark: 'wait' }
     ] },
-  { id: 'r3', agent: 'The Operator', when: 'Oct 9, 8:20 AM', channel: 'Email', from: 'Alex Rivera', customer: 'Alex Rivera, Northwind Supply',
+  { id: 'r3', agent: 'Email and texts', when: 'Oct 9, 8:20 AM', channel: 'Email', from: 'Alex Rivera', customer: 'Alex Rivera, Northwind Supply',
     about: 'Pickup yesterday', type: 'New request type', stage: 'Review', status: 'needs',
     ref: 'None found', by: 'Operator, waiting for approval', statusNote: 'Not sure of the kind. Reply drafted.',
     ask: 'Approve the reply before it goes out. The Operator was not sure what kind of email this is, so a person checks it.', cta: 'Review it',
@@ -163,7 +163,7 @@ export const ACTIVITY: ActivityRow[] = [
       { title: 'Drafted a reply', sub: 'Oct 9, 8:21 AM' },
       { title: 'Waiting for approval', sub: 'In Review', mark: 'wait' }
     ] },
-  { id: 'r5', agent: 'The Operator', when: 'Oct 8, 1:01 PM', channel: 'Email', from: 'Alex Rivera', customer: 'Alex Rivera, Northwind Supply',
+  { id: 'r5', agent: 'Email and texts', when: 'Oct 8, 1:01 PM', channel: 'Email', from: 'Alex Rivera', customer: 'Alex Rivera, Northwind Supply',
     about: 'PRO 0300100123 Freight Charges', type: 'New request type', stage: 'Learn', status: 'done',
     ref: 'PRO 0300100123', by: 'Operator, approved by Jordan Lee', statusNote: 'Forwarded after Jordan Lee approved',
     asked: 'A question about the freight charges on PRO 0300100123.',
@@ -178,7 +178,7 @@ export const ACTIVITY: ActivityRow[] = [
       { title: 'Waited 46 min for approval', sub: 'Approved by Jordan Lee at 1:48 PM' },
       { title: 'Forwarded to your escalation contact', sub: 'Oct 8, 1:48 PM', mark: 'ok' }
     ] },
-  { id: 'r4', agent: 'The Operator', when: 'Oct 8, 9:05 AM', channel: 'Email', from: 'Alex Rivera', customer: 'Alex Rivera, Northwind Supply',
+  { id: 'r4', agent: 'Email and texts', when: 'Oct 8, 9:05 AM', channel: 'Email', from: 'Alex Rivera', customer: 'Alex Rivera, Northwind Supply',
     about: 'Pricing on our last shipment', type: 'New request type', stage: 'Review', status: 'needs',
     ref: 'PRO 0300100123', by: 'Operator, waiting for approval', statusNote: 'Not sure of the kind. Reply drafted.',
     ask: 'Approve the reply before it goes out. The Operator was not sure what kind of email this is, so a person checks it.', cta: 'Review it',
@@ -195,7 +195,7 @@ export const ACTIVITY: ActivityRow[] = [
       { title: 'Drafted a reply', sub: 'Oct 8, 9:06 AM' },
       { title: 'Waiting for approval', sub: 'In Review', mark: 'wait' }
     ] },
-  { id: 'r6', agent: 'The Operator', when: 'Oct 8, 9:00 AM', channel: 'Email', from: 'Alex Rivera', customer: 'Alex Rivera, Northwind Supply',
+  { id: 'r6', agent: 'Email and texts', when: 'Oct 8, 9:00 AM', channel: 'Email', from: 'Alex Rivera', customer: 'Alex Rivera, Northwind Supply',
     about: 'PRO for pickup 9900456', type: 'PRO tracking request', stage: 'Shadow', status: 'fail',
     note: 'The PRO lookup timed out.', ref: 'Pickup 9900456', by: 'Operator', statusNote: 'The PRO lookup timed out',
     ask: 'The Operator could not look up the PRO, so it made no prediction. Your team still needs to reply.', cta: 'Open in Inbox',
@@ -228,7 +228,7 @@ export const ACTIVITY: ActivityRow[] = [
       { title: 'Predicted: confirm the pickup window', sub: 'Pickup 9800777' },
       { title: 'Your team\'s answer matched', sub: 'Counts toward moving to Review', mark: 'ok' }
     ] },
-  { id: 'r8', agent: 'The Operator', when: 'Oct 7, 11:37 AM', channel: 'Email', from: 'Alex Rivera', customer: 'Alex Rivera, Northwind Supply',
+  { id: 'r8', agent: 'Email and texts', when: 'Oct 7, 11:37 AM', channel: 'Email', from: 'Alex Rivera', customer: 'Alex Rivera, Northwind Supply',
     about: 'Pickup', type: 'ETA or status request', stage: 'Review', status: 'fail',
     note: 'No draft reply was ready to send.', ref: 'None found', by: 'Operator', statusNote: 'No draft reply was ready to send',
     ask: 'The email had no pickup number, so the Operator could not draft a reply. Someone needs to answer Alex.', cta: 'Open in Inbox',
@@ -242,7 +242,7 @@ export const ACTIVITY: ActivityRow[] = [
       { title: 'Recognized as ETA or status request', sub: 'Matched a rule in the Playbook' },
       { title: 'No pickup number found', sub: 'No draft reply was ready to send', mark: 'bad' }
     ] },
-  { id: 'r9', agent: 'The Operator', when: 'Oct 6, 9:30 AM', channel: 'Email', from: 'Alex Rivera', customer: 'Alex Rivera, Northwind Supply',
+  { id: 'r9', agent: 'Email and texts', when: 'Oct 6, 9:30 AM', channel: 'Email', from: 'Alex Rivera', customer: 'Alex Rivera, Northwind Supply',
     about: 'Status of pickup 9800123', type: 'ETA or status request', stage: 'Review', status: 'done',
     ref: 'Pickup 9800123', by: 'Operator, approved by Jordan Lee', statusNote: 'Sent after Jordan Lee approved',
     asked: 'The status of pickup 9800123.',
@@ -257,7 +257,7 @@ export const ACTIVITY: ActivityRow[] = [
       { title: 'Drafted a reply', sub: 'Oct 6, 9:31 AM' },
       { title: 'Sent after Jordan Lee approved', sub: 'Approved as written', mark: 'ok' }
     ] },
-  { id: 'r10', agent: 'The Operator', when: 'Oct 6, 7:51 AM', channel: 'Text message', from: 'Sam Patel', customer: 'Sam Patel, Northwind Supply',
+  { id: 'r10', agent: 'Email and texts', when: 'Oct 6, 7:51 AM', channel: 'Text message', from: 'Sam Patel', customer: 'Sam Patel, Northwind Supply',
     about: 'POD for PRO 0100200333', type: 'Proof of delivery request', stage: 'Review', status: 'done',
     ref: 'PRO 0100200333', by: 'Operator, edited by Taylor Morgan', statusNote: 'Sent after Taylor Morgan edited and approved',
     asked: 'A copy of the proof of delivery for PRO 0100200333.',
@@ -290,7 +290,7 @@ export const ACTIVITY: ActivityRow[] = [
       { title: 'Got the driver ETA', sub: 'About 30 minutes out' },
       { title: 'Added the ETA to the customer reply', sub: 'Sent after Jordan Lee approved', mark: 'ok' }
     ] },
-  { id: 'r12', agent: 'The Operator', when: 'Oct 5, 10:12 AM', channel: 'Email', from: 'Northwind auto-reply', customer: 'Northwind Supply',
+  { id: 'r12', agent: 'Email and texts', when: 'Oct 5, 10:12 AM', channel: 'Email', from: 'Northwind auto-reply', customer: 'Northwind Supply',
     about: 'Out of office: Re: pickup 9800123', type: 'Auto-reply or out of office', stage: 'Review', status: 'ign',
     ref: 'Pickup 9800123', by: 'Operator', statusNote: 'Nothing to do',
     asked: 'Nothing. This was an automatic out-of-office reply.',

@@ -1,16 +1,16 @@
 "use client"
 
 import Link from "next/link"
-import { AlertCircle, ChevronRight, Plus, Workflow as WorkflowIcon } from "lucide-react"
+import { AlertCircle, Brain, ChevronRight, Plus, Workflow as WorkflowIcon } from "lucide-react"
 import { toast } from "sonner"
 
 import { cn } from "@/lib/utils"
 
 import { KindIcon } from "@/components/m/kind-icon"
-import { Card, Details, Dot, Group, Icon, Journey, PageTitle, Row, Section } from "@/components/m/ui"
+import { Card, Details, Dot, Group, Icon, PageTitle, Row, Section } from "@/components/m/ui"
 import { AGENTS, KIND_LABEL } from "@/lib/moneiva/agents-data"
 import { USED } from "@/lib/moneiva/agents-extra-data"
-import { AGENT_STAGE, RUNS_TODAY, STAGE_INFO, WORKFLOWS, agentState, metaFor, type Workflow } from "@/lib/minimal"
+import { RUNS_TODAY, WORKFLOWS, agentState, isLearning, metaFor, type Workflow } from "@/lib/minimal"
 
 function NewButton({ label }: { label: string }) {
   return (
@@ -52,59 +52,55 @@ function AutomateTitle({ view, lead }: { view: "agents" | "workflows"; lead: Rea
 
 /** Agents: who does the work. Each one learns in four steps, then works on its own. */
 export function AgentsList() {
-  const groups = [
-    { title: "Email and files", ids: AGENTS.filter((a) => a.kind === "email" || a.kind === "files") },
-    { title: "Phone", ids: AGENTS.filter((a) => a.kind === "inbound" || a.kind === "outbound") },
-  ]
+  const tasks = AGENTS.filter((a) => !isLearning(a.id))
   return (
     <>
       <AutomateTitle
         view="agents"
-        lead="Agents do the work, like answering email or making calls. Each one learns from your team before it works on its own."
+        lead="Task agents follow a script when a workflow calls them, like placing a check call or updating a catalog. They don't learn from your team."
       />
-      {groups.map((g) => (
-        <Section key={g.title} title={g.title}>
-          <Group>
-            {g.ids.map((a) => {
-              const st = agentState(a)
-              const stage = AGENT_STAGE[a.id]
-              const used = USED[a.id].length
-              return (
-                <Row
-                  key={a.id}
-                  href={`/agents/${a.id}`}
-                  icon={
-                    <Icon>
-                      <KindIcon kind={a.kind} />
-                    </Icon>
-                  }
-                  title={a.name}
-                  sub={
-                    <span className="inline-flex flex-wrap items-center gap-x-1.5">
-                      <Dot tone={st.tone} />
-                      {st.tone === "bad" || st.tone === "off" ? st.label : `${a.today} ${a.todayLabel}`}
-                      <span className="text-muted-foreground/60">·</span>
-                      {KIND_LABEL[a.kind]}
-                      {used > 0 && (
-                        <>
-                          <span className="text-muted-foreground/60">·</span>
-                          {used === 1 ? "In 1 workflow" : `In ${used} workflows`}
-                        </>
-                      )}
-                    </span>
-                  }
-                  value={
-                    <div className="hidden w-40 sm:block">
-                      <Journey stage={stage} compact />
-                      <div className="mt-1.5 text-left text-[12px]">{STAGE_INFO[stage].label}</div>
-                    </div>
-                  }
-                />
-              )
-            })}
-          </Group>
-        </Section>
-      ))}
+      <Section title="Task agents">
+        <Group>
+          {tasks.map((a) => {
+            const st = agentState(a)
+            const used = USED[a.id].length
+            return (
+              <Row
+                key={a.id}
+                href={`/agents/${a.id}`}
+                icon={
+                  <Icon>
+                    <KindIcon kind={a.kind} />
+                  </Icon>
+                }
+                title={a.name}
+                sub={
+                  <span className="inline-flex flex-wrap items-center gap-x-1.5">
+                    <Dot tone={st.tone} />
+                    {st.tone === "bad" || st.tone === "off" ? st.label : `${a.today} ${a.todayLabel}`}
+                    <span className="text-muted-foreground/60">·</span>
+                    {KIND_LABEL[a.kind]}
+                  </span>
+                }
+                value={<span className="hidden sm:inline">{used === 0 ? "Not in a workflow" : used === 1 ? "In 1 workflow" : `In ${used} workflows`}</span>}
+              />
+            )
+          })}
+        </Group>
+      </Section>
+
+      <Group>
+        <Row
+          href="/teach"
+          icon={
+            <Icon tone="blue">
+              <Brain />
+            </Icon>
+          }
+          title="Looking for Email and texts or the Inbound phone line?"
+          sub="They are learning agents. They work for the Operator, so they live in Teach."
+        />
+      </Group>
     </>
   )
 }
