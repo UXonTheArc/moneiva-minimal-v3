@@ -37,7 +37,7 @@ export default function TodayPage() {
       />
 
       {/* The one thing to do. */}
-      <Card className="mb-4 overflow-hidden">
+      <Card className="mb-12 overflow-hidden">
         {left > 0 ? (
           <div className="flex flex-col gap-6 p-6 sm:flex-row sm:items-center sm:p-8">
             <div className="flex-1">
@@ -64,7 +64,8 @@ export default function TodayPage() {
         )}
       </Card>
 
-      <Group className="mb-12">
+      <Section title="Also needs you" action={<span className="text-[13px] text-muted-foreground">Fixes and things to teach</span>}>
+      <Group>
         {stopped.map((a) => (
           <Row
             key={a.id}
@@ -103,6 +104,7 @@ export default function TodayPage() {
           sub="When you have a minute. Each answer means the Operator needs you less."
         />
       </Group>
+      </Section>
 
       <Section title="Teaching">
         <OperatorCard compact />
